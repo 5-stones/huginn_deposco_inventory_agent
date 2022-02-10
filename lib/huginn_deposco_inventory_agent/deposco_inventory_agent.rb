@@ -209,9 +209,13 @@ module Agents
                         })
                     end
                 rescue Faraday::Error::ClientError => e
+                    status = 500
+                    if defined?(e.response_status)
+                        status = e.response_status
+                    end
                     errors.push({
                         'sku': sku,
-                        'status_code': e.response_status,
+                        'status_code': status,
                         'message': e.message
                     })
                 rescue DeposcoAgentError => e
