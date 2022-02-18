@@ -194,10 +194,8 @@ module Agents
             errors = []
 
             skus.each do |sku|
-                path = "/items/#{business_unit}/#{sku}/atps"
-
                 begin
-                    item = deposco_client.get_deposco_stock(path)
+                    item = deposco_client.get_deposco_stock(sku, business_unit)
 
                     if item.is_a?(Hash)
                         deposco_stock.push(item)
